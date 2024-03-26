@@ -36,7 +36,7 @@ export function App() {
                             <Route element={<UserDetails />} path="/user/:userId" />
                         </Routes>
                     </main>
-                    <AppFooter />
+                    {/* <AppFooter /> */}
                 </section>
             </Router>
         </Provider>

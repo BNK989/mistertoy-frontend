@@ -8,13 +8,7 @@ import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import {
-  toyActions,
-  loadToys,
-  removeToyOptimistic,
-  saveToy,
-  setFilterBy,
-} from '../store/actions/toy.actions.js'
+import { toyActions } from '../store/actions/toy.actions.js'
 import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
 
 export function ToyIndex() {
@@ -24,17 +18,18 @@ export function ToyIndex() {
   const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
 
   useEffect(() => {
-    loadToys().catch((err) => {
-      showErrorMsg('Cannot load toys!')
+    toyActions.loadToys().catch((err) => {
+      showErrorMsg('Cannot load toys!(toyIndex.jsx:22)')
     })
   }, [filterBy])
 
   function onSetFilter(filterBy) {
-    setFilterBy(filterBy)
+    //console.log('27: searching for:', filterBy)
+    toyActions.setFilterBy(filterBy)
   }
 
   function onRemoveToy(ToyId) {
-    removeToyOptimistic(ToyId)
+    toyActions.removeToyOptimistic(ToyId)
       .then(() => {
         showSuccessMsg('toy removed')
       })
@@ -61,7 +56,7 @@ export function ToyIndex() {
     const price = +prompt('New price?')
     const toyToSave = { ...toy, price }
 
-    saveToy(toyToSave)
+    toyActions.saveToy(toyToSave)
       .then((savedToy) => {
         showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
       })

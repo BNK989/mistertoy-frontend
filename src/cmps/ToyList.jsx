@@ -2,7 +2,6 @@ import { ToyPreview } from './ToyPreview.jsx'
 import PropTypes from 'prop-types'
 
 export function ToyList({ toys, onRemoveToy, onEditToy, addToCart }) {
-  console.log('List rendered')
 
   return (
     <ul className="toy-list clean-list">

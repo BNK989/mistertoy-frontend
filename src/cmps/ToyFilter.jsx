@@ -1,47 +1,62 @@
-
-import { useEffect, useRef, useState } from "react"
-import { utilService } from "../services/util.service.js"
-import { useEffectUpdate } from "../customHooks/useEffectUpdate.js"
+import { useEffect, useRef, useState } from 'react'
+import { utilService } from '../services/util.service.js'
+import { useEffectUpdate } from '../customHooks/useEffectUpdate.js'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 export function ToyFilter({ filterBy, onSetFilter }) {
+  const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+  const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
+  const [searchParams, setSearchParams] = useSearchParams()
 
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-    onSetFilter = useRef(utilService.debounce(onSetFilter, 300))
-
-    useEffectUpdate(() => {
-        onSetFilter.current(filterByToEdit)
-    }, [filterByToEdit])
-
-    function handleChange({ target }) {
-        let { value, name: field, type } = target
-        value = type === 'number' ? +value : value
-        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+  useEffectUpdate(() => {
+    setSearchParams(filterByToEdit)
+    const searchObj = {
+      txt: searchParams.get('txt'),
+      maxPrice: +searchParams.get('maxPrice'),
     }
-    //console.log('filterByToEdit:', filterByToEdit)
-    return (
-        <section className="toy-filter full main-layout">
-            {/* <h2>Toys Filter</h2> */}
-            <form >
-                <label htmlFor="title">Title:</label>
-                <input type="text"
-                    id="title"
-                    name="txt"
-                    placeholder="By title"
-                    value={filterByToEdit.txt}
-                    onChange={handleChange}
-                />
+    console.log('searchParams:', searchObj)
+    debounceOnSetFilter.current(filterByToEdit)
+  }, [filterByToEdit])
 
-                <label htmlFor="maxPrice">Max price:</label>
-                <input type="number"
-                    id="maxPrice"
-                    name="maxPrice"
-                    placeholder="By max price"
-                    value={filterByToEdit.maxPrice || ''}
-                    onChange={handleChange}
-                />
+  function handleChange({ target }) {
+    let { value, name: field, type } = target
+    value = type === 'number' ? +value : value
+    if (type === "select-one"){
+        if(value === 'false') value = false
+        if(value === 'true') value = true
+    }
+    setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+  }
 
-            </form>
+  return (
+    <section className="toy-filter full main-layout">
+      <form>
+        <label htmlFor="title">Title:</label>
+        <input
+          type="text"
+          id="title"
+          name="txt"
+          placeholder="By title"
+          value={filterByToEdit.txt}
+          onChange={handleChange}
+        />
 
-        </section>
-    )
+        <label htmlFor="maxPrice">Max price:</label>
+        <input
+          type="number"
+          id="maxPrice"
+          name="maxPrice"
+          placeholder="By max price"
+          value={filterByToEdit.maxPrice || ''}
+          onChange={handleChange}
+        />
+        <label htmlFor="inStock">in Stock:</label>
+        <select type="boolean" id="inStock" name="inStock" onChange={handleChange}>
+          <option value="">All</option>
+          <option value='true'>In Stock</option>
+          <option value='false'>Out of stock</option>
+        </select>
+      </form>
+    </section>
+  )
 }

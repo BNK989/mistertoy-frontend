@@ -11,12 +11,21 @@ import {
 } from '../reducers/toy.reducer.js'
 import { store } from '../store.js'
 
+export const toyActions = {
+  saveToy,
+  loadToys,
+  removeToyOptimistic,
+  setFilterBy,
+}
+
 export function loadToys() {
   const filterBy = store.getState().toyModule.filterBy
+  //console.log('loadtoys from actions filterBy:', filterBy)
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   return toyService
     .query(filterBy)
     .then((toys) => {
+      //console.log('toys28:', toys)
       store.dispatch({ type: SET_TOYS, toys })
     })
     .catch((err) => {
@@ -52,14 +61,6 @@ export function removeToyOptimistic(ToyId) {
       console.log('toy action -> Cannot remove toy', err)
       throw err
     })
-}
-
-export const toyActions = {
-  saveToy,
-  // onAddToy,
-  // onEditToy,
-  // onRemoveToy,
-  // onSetFilter,
 }
 
 export function saveToy(toy) {
