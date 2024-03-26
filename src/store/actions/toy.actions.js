@@ -49,10 +49,11 @@ export function removeToy(toyId) {
     })
 }
 
-export function removeToyOptimistic(ToyId) {
-  store.dispatch({ type: REMOVE_Toy, ToyId })
+export function removeToyOptimistic(toyId) {
+  console.log('ToyId:', toyId)
+  store.dispatch({ type: REMOVE_TOY, toyId })
   return toyService
-    .remove(ToyId)
+    .remove(toyId)
     .then(() => {
       showSuccessMsg('Removed Toy')
     })

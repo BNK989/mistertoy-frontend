@@ -32,7 +32,7 @@ function getById(toyId) {
 }
 function remove(toyId) {
   // return httpService.delete(BASE_URL + toyId)
-  return storageService.delete(BASE_URL + toyId)
+  return storageService.remove(KEY, toyId)
 }
 
 function save(toy) {
