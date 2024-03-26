@@ -7,6 +7,7 @@ export function ToyPreview({ toy }) {
         <article>
             <h4>{toy.title}</h4>
             <p>Price: <span>${toy.price.toLocaleString()}</span></p>
+            <ul className="labels clean-list flex">{toy.labels.map((label) => <li key={label}>{label}</li>)}</ul>
             {toy.owner && <p>Owner: <Link to={`/user/${toy.owner._id}`}>{toy.owner.fullname}</Link></p>}
             <hr />
             <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp; | &nbsp;

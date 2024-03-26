@@ -50,7 +50,7 @@ function getEmptyToy() {
     title: 'Toy-' + utilService.getRandomIntInclusive(10, 99),
     price: utilService.getRandomIntInclusive(10, 900),
     labels: ['Doll', 'Battery Powered', 'Baby'],
-    inStock: true,
+    inStock: Math.random() > 0.3 ? true : false,
   }
 }
 

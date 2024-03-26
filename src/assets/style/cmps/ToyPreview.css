@@ -13,3 +13,15 @@
 .toy-preview img {
   max-width: 100px;
 }
+
+
+.labels{
+  gap: 0.3em;
+  flex-wrap: wrap;
+  li{
+    font-size: .8em;
+   background-color: rgb(238 155 0 / 40%);
+   border-radius: 5px;
+   padding: .2em .5em;
+  }
+}

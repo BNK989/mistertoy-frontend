@@ -6,7 +6,7 @@ export function ToyList({ toys, onRemoveToy, onEditToy, addToCart }) {
   return (
     <ul className="toy-list clean-list">
       {toys.map((toy) => (
-        <li className="toy-preview" key={toy._id}>
+        <li className={`toy-preview ${toy.inStock ? 'inStock' : 'oos'}`} key={toy._id}>
           <ToyPreview toy={toy} />
 
           <div>
