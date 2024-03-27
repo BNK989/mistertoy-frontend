@@ -14,6 +14,15 @@
   max-width: 100px;
 }
 
+.toy-preview article {
+  flex-direction: column;
+  .stockStatus{
+    align-self: self-start;
+    padding: 0.3em 0.5em;
+    font-size: .8em;
+  }
+}
+
 
 .labels{
   gap: 0.3em;
