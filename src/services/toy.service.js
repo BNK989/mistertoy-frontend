@@ -28,7 +28,7 @@ function query(filterBy = {}) {
 
 function getById(toyId) {
   // return httpService.get(BASE_URL + toyId)
-  return storageService.get(BASE_URL + toyId)
+  return storageService.get(KEY, toyId)
 }
 function remove(toyId) {
   // return httpService.delete(BASE_URL + toyId)

@@ -34,8 +34,10 @@ export function ToyDetails() {
         perferendis tempora aspernatur sit, explicabo veritatis corrupti
         perspiciatis repellat, enim quibusdam!
       </p>
-      <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp;
-      <Link to={`/toy`}>Back</Link>
+      <div className="actions">
+        <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp;
+        <Link to={`/toy`}>Back</Link>
+      </div>
       <p>
         {/* <Link to="/toy/lqIQG">Next Toy</Link> */}
       </p>
